@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+
+{% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 300px;">
+{% endif %}
+
+<p>{{ post.description_question_long }}</p>
+
+{% if has_voted or not post.is_active %}
+    <h3>Результаты:</h3>
+    {% for result in vote_results %}
+        <div style="margin: 10px 0;">
+            <strong>{{ result.option.description }}</strong>: 
+            {{ result.votes }} голосов ({{ result.percentage }}%)
+            {% if user_vote.option == result.option %}
+                <strong>← Ваш голос</strong>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% elif user.is_authenticated %}
+    <a href="{% url 'vote' post.pk %}">Проголосовать</a>
+{% else %}
+    <p><a href="{% url 'login' %}">Войдите, чтобы проголосовать</a></p>
+{% endif %}
+
+<p><small>Создал: {{ post.user_created.username }} | Осталось: {{ post.time_remaining }}</small></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Голосование: {{ post.title }}</h1>
+<p>{{ post.description_question_short }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Проголосовать</button>
+</form>
+
+<a href="{% url 'post_detail' post.pk %}">Назад к опросу</a>
+{% endblock %}

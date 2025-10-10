@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Создать новый опрос</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <p>
+        <label for="id_title">Заголовок опроса:</label>
+        {{ form.title }}
+    </p>
+    
+    <p>
+        <label for="id_description_question_short">Краткое описание:</label>
+        {{ form.description_question_short }}
+    </p>
+    
+    <p>
+        <label for="id_description_question_long">Полное описание:</label>
+        {{ form.description_question_long }}
+    </p>
+    
+    <p>
+        <label for="id_image">Изображение (необязательно):</label>
+        {{ form.image }}
+    </p>
+    
+    <p>
+        <label for="id_time_of_life_minutes">Время жизни опроса (в минутах):</label>
+        {{ form.time_of_life_minutes }}
+        <small>{{ form.time_of_life_minutes.help_text }}</small>
+    </p>
+    
+    <p>
+        <label for="id_options">Варианты ответов (через запятую):</label>
+        {{ form.options }}
+        <small>{{ form.options.help_text }}</small>
+    </p>
+    
+    <button type="submit">Создать опрос</button>
+</form>
+
+<a href="{% url 'home' %}">На главную</a>
+{% endblock %}
